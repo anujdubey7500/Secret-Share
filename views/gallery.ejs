@@ -1,0 +1,53 @@
+<%- include('partials/header') %>
+   
+    <div class="container">
+        
+        <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Shared Gallery</h1>
+      
+        <hr class="mt-2 mb-5">
+      
+        <div class="row text-center text-lg-left">
+            <% items.forEach(function(image) { %> 
+              <% profs.forEach(function(profile) { %>
+                <% if(image.userIdname===profile.userIdname) {%> 
+          <div class="col-lg-3 col-md-4 col-4">
+          
+            <p class="user_id"><img src="data:profile/<%=profile.img.contentType%>;base64, 
+              <%=profile.img.data.toString('base64')%>" alt="" class="profile"><% } %> <% }) %><%=image.userIdname.substring(0,image.userIdname.length-10) %><button style="border:none;background: none;float: right;" class="btn btn-light btn-sm"  role="button" name=<%=image.userIdname%> id =<%=image.id%> onclick="del(this.id,this.name)"><i class="fas fa-trash"></i></button> </p>
+            <a href="#" class="d-block mb-4 h-60">
+                  <img  src="data:image/<%=image.img.contentType%>;base64, 
+                  <%=image.img.data.toString('base64')%>" alt="" class="img-fluid img-thumbnail one">
+                </a>
+                  <button style="border:none;background: none;" class="btn btn-light" id =<%=image.id %> role="button" onclick="like(this.id)"><i class="fas fa-grin-hearts"></i>
+                  <p style="float:right;" class = <%=image.id %>> <%=image.likes %> </p> &nbsp;&nbsp;</button>
+          </div>
+         
+          <% }) %>
+      </div>
+       
+      </div>
+<script>
+function like(id){
+  $.post('/like/' + id, function (response) {
+        var a = document.getElementsByClassName(id)
+        a[0].innerHTML = response.items.likes
+    })
+}
+
+function del(id,name){
+
+  $.post('/del/'+id + '/'+name, function (response){
+    console.log(response);
+    if(response=="True"){
+      alert("The picture has deleted.");
+      location.reload();
+    }  else{
+      alert("You can't delete this picture. You don't have permissions.");
+    }
+    })
+  
+}
+</script>
+</body> 
+  
+</html> 

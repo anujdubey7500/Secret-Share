@@ -1,0 +1,32 @@
+
+body {
+  background-color: #E8ECEF;
+}
+
+.centered {
+    padding-top: 120px;
+    text-align: center;
+}
+
+.secret-text {
+  text-align: center;
+  font-size: 2rem;
+  color: #fff;
+  background-color: #000;
+}
+
+.user_id{
+  font-size: 17px;
+}
+
+.profile{
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.profile:hover{
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+}
