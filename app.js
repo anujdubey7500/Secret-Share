@@ -10,13 +10,6 @@ const multer = require('multer');
 
 
 
-//level 1:: const encrypt=require("mongoose-encryption")
-//level 3(Hashing):: const md5=require("md5");
-//level 4(Salting and hashing):: using bcrypt package
-//const bcrypt=require("bcrypt");
-//const saltRounds=10;
-//passport service
-
 var name;
 var user_id;
 var login_id;
@@ -47,9 +40,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb+srv://Admin-anuj:Anuj7500@cluster0.r2k6y.mongodb.net/SECRETSDB?retryWrites=true&w=majority");
-
-//mongoose.connect("mongodb://localhost:27017/SECRETSDB", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/SECRETSDB", {useNewUrlParser: true});
 mongoose.set("useCreateIndex", true);
 
 const userSchema = new mongoose.Schema ({
@@ -88,7 +79,7 @@ var imageSchema = new mongoose.Schema({
 
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
-//userSchema.plugin(encrypt,{secret:process.env.SECRET, encryptedFields:["password"]});
+
 
 const User = new mongoose.model("User", userSchema);
 const profile =mongoose.model('profile', profileSchema);
@@ -234,21 +225,6 @@ app.get("/logout", function(req, res){
 app.post("/register", upload.single('image'),function(req, res){
 
 
-/*bcrypt.hash(req.body.password,saltRounds,function(err,hash){
-        
-   const newUser = new User({
-    email:req.body.username,
-    password:hash
-})
-
- newUser.save(function(err){
-     if(err){
-         console.log("Error");
-     }else{
-         res.render("secrets");
-     }
- });
-    });*/
 
 
   User.register({username: req.body.username,full_name:req.body.full_name,question:req.body.question,answer:req.body.answer},req.body.password, function(err, user){
@@ -284,23 +260,6 @@ app.post("/register", upload.single('image'),function(req, res){
 app.post("/login", function(req, res){
 
 
-/* const userName= req.body.username;
-    const password=req.body.password; 
-
-    User.findOne({email: userName},function(err,founddoc){
-        if(err){
-            console.log("Error");
-        }else
-        {
-            if(founddoc){
-               bcrypt.compare(password, founddoc.password,function(err,result){
-                if (result===true){    
-                res.render("secrets");
-                }
-            });
-            }
-        }
-    })*/
 
 
 
