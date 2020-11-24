@@ -13,6 +13,7 @@ const multer = require('multer');
 var name;
 var user_id;
 var login_id;
+var change;
 
 
 const passport = require("passport");
@@ -20,7 +21,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const { strict } = require('assert');
-
 const app = express();
 
 app.use(express.static("public"));
